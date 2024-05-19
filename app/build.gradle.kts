@@ -69,9 +69,12 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
-    val version_navigation = "2.4.0"
     implementation(libs.androidx.navigation.fragment.ktx.v240)
     implementation(libs.androidx.navigation.ui.ktx.v240)
+
+    implementation (libs.androidx.viewpager2)
+    implementation (libs.material.v140)
+
     //Add new library for use the Chip Bottom Navigation Bar
     implementation(libs.ismaeldivita.chip.navigation.bar)
 
