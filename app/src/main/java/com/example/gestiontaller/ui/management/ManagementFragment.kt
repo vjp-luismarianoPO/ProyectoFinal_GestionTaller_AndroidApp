@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.gestiontaller.R
 import com.example.gestiontaller.databinding.FragmentManagementBinding
+import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
@@ -18,10 +19,12 @@ class ManagementFragment : Fragment() {
     private var _binding: FragmentManagementBinding? = null
     private val binding get() = _binding!!
     private var _menuOptions: ChipNavigationBar? = null
-    private var currentSection: String = "siniestros"
+    private var currentSection: String? = null
+
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private lateinit var adapter: ManagementPagerAdapter
+    private lateinit var tabItemAccidents: TabItem
+    private lateinit var tabItemClients: TabItem
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,16 +36,9 @@ class ManagementFragment : Fragment() {
         viewPager = root.findViewById(R.id.view_pager)
         tabLayout = root.findViewById(R.id.tab_layout)
 
-        adapter = ManagementPagerAdapter(this)
-        viewPager.adapter = adapter
+        //tabItemAccidents = root.findViewById(R.id.tab_item_accidents)
+        //tabItemClients = root.findViewById(R.id.tab_item_clients)
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "siniestros"
-                1 -> "clientes"
-                else -> null
-            }
-        }.attach()
 
         _menuOptions = root.findViewById(R.id.bottom_nav_var)
         _menuOptions?.setOnItemSelectedListener { id ->
@@ -50,39 +46,56 @@ class ManagementFragment : Fragment() {
                 R.id.nav_add -> {
                     loadLayoutForAction("add")
                 }
+
                 R.id.nav_get -> {
                     loadLayoutForAction("get")
                 }
+
                 R.id.nav_update -> {
                     loadLayoutForAction("update")
                 }
+
                 R.id.nav_delete -> {
                     loadLayoutForAction("delete")
                 }
+
                 else -> {
                     Toast.makeText(activity, "Opción desconocida", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                currentSection = when (tab.position) {
-                    0 -> "siniestros"
-                    1 -> "clientes"
-                    else -> ""
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
-
         return root
     }
 
     private fun loadLayoutForAction(action: String) {
-        adapter.setActionForSection(currentSection, action)
+        val layoutId = when (currentSection) {
+            "siniestros" -> when (action) {
+                "add" -> R.layout.fragment_add_accident
+                "get" -> R.layout.fragment_get_accident
+                "update" -> R.layout.fragment_update_accident
+                "delete" -> R.layout.fragment_delete_accident
+                else -> null
+            }
+
+            "clientes" -> when (action) {
+                "add" -> R.layout.fragment_add_accident
+                "get" -> R.layout.fragment_get_client
+                "update" -> R.layout.fragment_update_client
+                "delete" -> R.layout.fragment_delete_client
+                else -> null
+            }
+
+            else -> null
+        }
+
+        if (layoutId != null) {
+            viewPager.adapter = SimpleFragmentPagerAdapter(layoutId, this)
+        } else {
+            Toast.makeText(activity, "Error al cargar el layout", Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
