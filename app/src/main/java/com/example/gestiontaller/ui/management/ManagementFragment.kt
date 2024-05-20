@@ -12,16 +12,13 @@ import com.example.gestiontaller.databinding.FragmentManagementBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import retrofit2.http.GET
 
 class ManagementFragment : Fragment() {
 
     private var _binding: FragmentManagementBinding? = null
     private val binding get() = _binding!!
     private var _menuOptions: ChipNavigationBar? = null
-    private var currentSection: String = "siniestros"
-    private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
-    private lateinit var adapter: ManagementPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,58 +27,37 @@ class ManagementFragment : Fragment() {
         _binding = FragmentManagementBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewPager = root.findViewById(R.id.view_pager)
-        tabLayout = root.findViewById(R.id.tab_layout)
-
-        adapter = ManagementPagerAdapter(this)
-        viewPager.adapter = adapter
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "siniestros"
-                1 -> "clientes"
-                else -> null
-            }
-        }.attach()
-
         _menuOptions = root.findViewById(R.id.bottom_nav_var)
         _menuOptions?.setOnItemSelectedListener { id ->
             when (id) {
                 R.id.nav_add -> {
-                    loadLayoutForAction("add")
+                    openFragment(AddAccidentFragment())
                 }
                 R.id.nav_get -> {
-                    loadLayoutForAction("get")
+                    openFragment(GetAccidentFragment())
                 }
                 R.id.nav_update -> {
-                    loadLayoutForAction("update")
+                    openFragment(UpdateAccidentFragment())
                 }
                 R.id.nav_delete -> {
-                    loadLayoutForAction("delete")
+                    openFragment(DeleteAccidentFragment())
                 }
                 else -> {
-                    Toast.makeText(activity, "Opción desconocida", Toast.LENGTH_SHORT).show()
+                    // Maneja casos inesperados si es necesario
                 }
             }
         }
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                currentSection = when (tab.position) {
-                    0 -> "siniestros"
-                    1 -> "clientes"
-                    else -> ""
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
+        // Selecciona la primera opción por defecto
+        _menuOptions?.setItemSelected(R.id.nav_add, true)
 
         return root
     }
 
-    private fun loadLayoutForAction(action: String) {
-        adapter.setActionForSection(currentSection, action)
+    private fun openFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     override fun onDestroyView() {

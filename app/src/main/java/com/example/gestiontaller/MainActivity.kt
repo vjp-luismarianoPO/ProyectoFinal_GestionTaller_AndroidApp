@@ -14,9 +14,10 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.viewpager2.widget.ViewPager2
 import com.example.gestiontaller.databinding.ActivityMainBinding
 import com.example.gestiontaller.ui.login.LoginActivity
+import com.example.gestiontaller.ui.management.DeleteAccidentFragment
+import com.example.gestiontaller.ui.management.ManagementFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.nav_bottom_bar, menu)
         return true
     }
 
