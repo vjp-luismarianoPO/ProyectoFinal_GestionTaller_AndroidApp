@@ -26,6 +26,7 @@ picasso = "2.71828"
 retrofit = "2.9.0"
 activity = "1.9.0"
 viewpager2 = "1.1.0"
+firebaseDatabaseKtx = "21.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +55,7 @@ picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 icons = {group="androidx.compose.material",name="material-icons-extended",  version.ref = "compose"}
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 
 
 [plugins]

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.gestiontaller" />
+                  <option name="mobileSdkAppId" value="1:125700298580:android:a832aecc972863367a5ac1" />
+                  <option name="projectId" value="pruebafirebase-8db17" />
+                  <option name="projectNumber" value="125700298580" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

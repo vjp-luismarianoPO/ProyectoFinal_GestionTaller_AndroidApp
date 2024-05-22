@@ -1,32 +1,59 @@
 package com.example.gestiontaller.ui.management
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gestiontaller.R
+import com.example.gestiontaller.databinding.FragmentGetAccidentBinding
+import com.example.gestiontaller.model.Accident
+import com.example.gestiontaller.services.ApiClient
+import com.example.gestiontaller.ui.adapter.AccidentAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GetAccidentFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GetAccidentFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentGetAccidentBinding? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var accidentAdapter: AccidentAdapter
+
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    }
+
+    private fun getAccidents() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response: Response<ArrayList<Accident>> = ApiClient.apiService.getAccidents()
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        accidentAdapter = AccidentAdapter(response.body()!!)
+                        recyclerView.adapter = accidentAdapter
+                    }
+                } else {
+                    showToast("Error al obtener los siniestros")
+                }
+            } catch (e: Exception) {
+                showToast(e.message ?: "Error desconocido")
+            }
+        }
+    }
+
+    private suspend fun showToast(message: String) {
+        withContext(Dispatchers.Main) {
+            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -34,27 +61,16 @@ class GetAccidentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_get_accident, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GetAccidentFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GetAccidentFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        _binding = FragmentGetAccidentBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        recyclerView = binding.recyclerViewAccidents
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        getAccidents()
+
+        return root
+
     }
 }

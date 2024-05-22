@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gestiontaller.R
 import com.example.gestiontaller.databinding.FragmentLogoutBinding
 import com.example.gestiontaller.ui.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class LogoutFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -28,11 +29,14 @@ class LogoutFragment : Fragment() {
         _binding = FragmentLogoutBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
         btn_logout = root.findViewById(R.id.buttonLogout)
         btn_cancel = root.findViewById(R.id.buttonCancel)
 
         btn_logout.setOnClickListener{
-            val intent: Intent = Intent(activity, LoginActivity::class.java)
+            val intent: Intent = Intent(activity, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            firebaseAuth.signOut()
             startActivity(intent)
             Toast.makeText(activity, "¡Sesión cerrada!", Toast.LENGTH_SHORT).show()
         }
