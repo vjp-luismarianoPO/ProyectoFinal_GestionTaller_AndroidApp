@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.example.gestiontaller.databinding.ActivityMainBinding
 import com.example.gestiontaller.ui.login.LoginActivity
-import com.example.gestiontaller.ui.management.DeleteAccidentFragment
-import com.example.gestiontaller.ui.management.ManagementFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_management, R.id.nav_calendar, R.id.nav_logout
+                R.id.nav_management_accidents, R.id.nav_management_clients, R.id.nav_calendar, R.id.nav_logout
             ), drawerLayout
         )
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Elige el tipo de trabajo</item>
+        <item>Sustitución</item>
+        <item>Reparación</item>
+        <item>Tintado</item>
+        <item>Pulido de faros</item>
+    </string-array>
+</resources>

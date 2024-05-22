@@ -4,19 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
 import com.example.gestiontaller.R
-import com.example.gestiontaller.databinding.FragmentManagementBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.gestiontaller.databinding.FragmentManagementAccidentBinding
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
-import retrofit2.http.GET
 
-class ManagementFragment : Fragment() {
+class ManagementAccidentFragment : Fragment() {
 
-    private var _binding: FragmentManagementBinding? = null
+    private var _binding: FragmentManagementAccidentBinding? = null
     private val binding get() = _binding!!
     private var _menuOptions: ChipNavigationBar? = null
 
@@ -24,10 +19,10 @@ class ManagementFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentManagementBinding.inflate(inflater, container, false)
+        _binding = FragmentManagementAccidentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        _menuOptions = root.findViewById(R.id.bottom_nav_var)
+        _menuOptions = root.findViewById(R.id.bottom_nav_var_accidents)
         _menuOptions?.setOnItemSelectedListener { id ->
             when (id) {
                 R.id.nav_add -> {
@@ -56,7 +51,7 @@ class ManagementFragment : Fragment() {
 
     private fun openFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container_accidents, fragment)
             .commit()
     }
 

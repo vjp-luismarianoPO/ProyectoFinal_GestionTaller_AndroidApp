@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_management">
+    app:startDestination="@+id/nav_management_accidents">
 
     <fragment
-        android:id="@+id/nav_management"
-        android:name="com.example.gestiontaller.ui.management.ManagementFragment"
-        android:label="@string/menu_gestion"
-        tools:layout="@layout/fragment_management" />
+        android:id="@+id/nav_management_accidents"
+        android:name="com.example.gestiontaller.ui.management.ManagementAccidentFragment"
+        android:label="@string/menu_management_accidents"
+        tools:layout="@layout/fragment_management_accident" />
+
+    <fragment
+        android:id="@+id/nav_management_clients"
+        android:name="com.example.gestiontaller.ui.management.ManagementClientFragment"
+        android:label="@string/menu_management_clients"
+        tools:layout="@layout/fragment_management_accident" />
 
     <fragment
         android:id="@+id/nav_calendar"

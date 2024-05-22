@@ -1,20 +1,20 @@
 <resources>
-    <string name="app_name">Gestion Taller</string>
+    <string name="app_name">Glass Management</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Glass Management</string>
+    <string name="nav_header_subtitle">Gestión del taller</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_gestion">Gestión</string>
+    <string name="menu_management_accidents">Gestión de Siniestros</string>
+    <string name="menu_management_clients">Gestión de Clientes</string>
     <string name="menu_calendar">Calendario</string>
     <string name="text_logout">Cerrar sesión</string>
     <string name="textView_logout">¿Está seguro de querer cerrar sesión?</string>
     <string name="text_cancel">Cancelar</string>
     <string name="title_activity_add">AddActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
