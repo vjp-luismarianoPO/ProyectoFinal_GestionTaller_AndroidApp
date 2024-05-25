@@ -1,12 +1,11 @@
 package com.example.gestiontaller.ui.management
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.gestiontaller.R
-import com.example.gestiontaller.databinding.FragmentManagementAccidentBinding
 import com.example.gestiontaller.databinding.FragmentManagementClientBinding
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
@@ -26,25 +25,23 @@ class ManagementClientFragment : Fragment() {
         _menuOptions?.setOnItemSelectedListener { id ->
             when (id) {
                 R.id.nav_add -> {
-                    openFragment(AddAccidentFragment())
+                    openFragment(AddClientFragment())
                 }
+
                 R.id.nav_get -> {
-                    openFragment(GetAccidentFragment())
+                    openFragment(GetClientFragment())
                 }
+
                 R.id.nav_update -> {
-                    openFragment(UpdateAccidentFragment())
+                    openFragment(UpdateClientFragment())
                 }
-                R.id.nav_delete -> {
-                    openFragment(DeleteAccidentFragment())
-                }
-                else -> {
-                    // Maneja casos inesperados si es necesario
-                }
+
+                else -> {}
             }
         }
 
         // Selecciona la primera opción por defecto
-        _menuOptions?.setItemSelected(R.id.nav_add, true)
+        _menuOptions?.setItemSelected(R.id.nav_get, true)
 
         return root
     }

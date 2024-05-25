@@ -9,3 +9,11 @@ data class Accident(
     val totalAmount: Double,
     val type: String
 )
+
+data class AccidentDto(
+    val clientId: Int,
+    val companyId: Int,
+    val supplierId: Int,
+    val totalAmount: Double,
+    val type: String
+)

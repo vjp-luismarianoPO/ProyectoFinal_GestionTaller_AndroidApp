@@ -12,8 +12,6 @@ import com.example.gestiontaller.R
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,21 +20,26 @@ class LoginActivity : AppCompatActivity() {
         val email: EditText = findViewById(R.id.editTextEmail)
         val password: EditText = findViewById(R.id.editTextPassword)
         val loginButton: Button = findViewById(R.id.loginButton)
-
+        //Get an instance of FireBaseAuth to handle authentication
         val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
 
         val emailTxt = email.text
         val passwordTxt = password.text
 
+        //Add a listener for login button
         loginButton.setOnClickListener {
+            //Check the email and password
             if (emailTxt.isNotEmpty() && passwordTxt.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
-                    if (it.isSuccessful){
+                //Try to sign in with Firebase Authentication
+                firebaseAuth.signInWithEmailAndPassword(
+                    email.text.toString(),
+                    password.text.toString()
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        //If is succesful, start MainActivity
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
-                    }
-                    else
+                    } else
                         showToast("Error en el usuario o contraseña")
                 }
             } else {
@@ -44,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun showToast(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()

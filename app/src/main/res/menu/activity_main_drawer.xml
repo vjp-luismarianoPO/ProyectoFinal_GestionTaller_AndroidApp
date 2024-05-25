@@ -13,10 +13,6 @@
             android:icon="@drawable/management_icon"
             android:title="@string/menu_management_clients" />
         <item
-            android:id="@+id/nav_calendar"
-            android:icon="@drawable/calendar_icon"
-            android:title="@string/menu_calendar" />
-        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout_icon"
             android:title="@string/text_logout" />

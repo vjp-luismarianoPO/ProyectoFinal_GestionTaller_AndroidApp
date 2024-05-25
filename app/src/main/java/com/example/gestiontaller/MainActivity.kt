@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_management_accidents, R.id.nav_management_clients, R.id.nav_calendar, R.id.nav_logout
+                R.id.nav_management_accidents, R.id.nav_management_clients, R.id.nav_logout
             ), drawerLayout
         )
 

@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestiontaller.R
 import com.example.gestiontaller.databinding.FragmentGetAccidentBinding
 import com.example.gestiontaller.model.Accident
 import com.example.gestiontaller.services.ApiClient
@@ -20,26 +18,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-
 class GetAccidentFragment : Fragment() {
-
     private var _binding: FragmentGetAccidentBinding? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var accidentAdapter: AccidentAdapter
-
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    private fun getAccidents() {
+    fun getAccidents() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response: Response<ArrayList<Accident>> = ApiClient.apiService.getAccidents()
                 if (response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        accidentAdapter = AccidentAdapter(response.body()!!)
+                        accidentAdapter = AccidentAdapter(response.body()!!.toMutableList())
                         recyclerView.adapter = accidentAdapter
                     }
                 } else {
@@ -61,16 +56,19 @@ class GetAccidentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentGetAccidentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        recyclerView = binding.recyclerViewAccidents
+        recyclerView = binding.recyclerViewClients
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         getAccidents()
 
         return root
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

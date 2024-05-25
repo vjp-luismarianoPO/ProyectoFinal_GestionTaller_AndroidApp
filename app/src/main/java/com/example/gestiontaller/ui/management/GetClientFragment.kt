@@ -1,32 +1,55 @@
 package com.example.gestiontaller.ui.management
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.gestiontaller.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.gestiontaller.databinding.FragmentGetClientBinding
+import com.example.gestiontaller.model.Client
+import com.example.gestiontaller.services.ApiClient
+import com.example.gestiontaller.ui.adapter.ClientAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [GetClientFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GetClientFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentGetClientBinding? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var clientAdapter: ClientAdapter
+
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    }
+
+    fun getClients() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response: Response<ArrayList<Client>> = ApiClient.apiService.getClients()
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        clientAdapter = ClientAdapter(response.body()!!.toMutableList())
+                        recyclerView.adapter = clientAdapter
+                    }
+                } else {
+                    showToast("Error al obtener los clientes")
+                }
+            } catch (e: Exception) {
+                showToast(e.message ?: "Error desconocido")
+            }
+        }
+    }
+
+    private suspend fun showToast(message: String) {
+        withContext(Dispatchers.Main) {
+            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -34,27 +57,20 @@ class GetClientFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_get_client, container, false)
+
+        _binding = FragmentGetClientBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        recyclerView = binding.recyclerViewClients
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        getClients()
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GetClientFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GetClientFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -28,24 +28,21 @@ class ManagementAccidentFragment : Fragment() {
                 R.id.nav_add -> {
                     openFragment(AddAccidentFragment())
                 }
+
                 R.id.nav_get -> {
                     openFragment(GetAccidentFragment())
                 }
+
                 R.id.nav_update -> {
                     openFragment(UpdateAccidentFragment())
                 }
-                R.id.nav_delete -> {
-                    openFragment(DeleteAccidentFragment())
-                }
-                else -> {
-                    // Maneja casos inesperados si es necesario
-                }
+
+                else -> {}
             }
         }
 
-        // Selecciona la primera opción por defecto
-        _menuOptions?.setItemSelected(R.id.nav_add, true)
-
+        // Select first option default
+        _menuOptions?.setItemSelected(R.id.nav_get, true)
         return root
     }
 

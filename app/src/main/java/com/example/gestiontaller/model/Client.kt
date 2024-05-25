@@ -9,3 +9,12 @@ data class Client(
     val name: String,
     val phone: String
 )
+
+data class ClientDto(
+    val accidentId: Any,
+    val carModel: String,
+    val companyId: Any,
+    val email: String,
+    val name: String,
+    val phone: String
+)

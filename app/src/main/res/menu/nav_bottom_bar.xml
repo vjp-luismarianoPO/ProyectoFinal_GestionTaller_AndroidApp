@@ -2,28 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:visible="false"
-        android:id="@+id/nav_add"
-        android:icon="@drawable/add_icon"
-        android:title="Añadir" />
-
-    <item
-        android:visible="false"
         android:id="@+id/nav_get"
         android:icon="@drawable/get_icon"
-        android:title="Obtener" />
-
+        android:title="@string/get_text"
+        android:visible="false" />
 
     <item
-        android:visible="false"
+        android:id="@+id/nav_add"
+        android:icon="@drawable/add_icon"
+        android:title="@string/add_text"
+        android:visible="false" />
+
+    <item
         android:id="@+id/nav_update"
         android:icon="@drawable/update_icon"
-        android:title="Actualizar" />
-
-    <item
-        android:visible="false"
-        android:id="@+id/nav_delete"
-        android:icon="@drawable/delete_icon"
-        android:title="Eliminar" />
+        android:title="@string/update_text"
+        android:visible="false" />
 
 </menu>

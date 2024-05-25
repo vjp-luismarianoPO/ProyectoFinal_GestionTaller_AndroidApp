@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="companies">
+        <item>Elige la compañía</item>
+        <item>Mapfre</item>
+        <item>Generali</item>
+        <item>Allianz</item>
+        <item>Asitur</item>
+        <item>AXA</item>
+    </string-array>
+</resources>
